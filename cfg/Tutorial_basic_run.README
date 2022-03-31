@@ -1,0 +1,91 @@
+[NOTES]
+DESCRIPTION: In this field you can put the name of the experience with key words or significant meaning
+
+BATCH= This field speciifed if the WBM is run in batch mode possible value [TRUE or FALSE]
+
+[NBS_serie]
+name:In this field you can put the name of the Net Basin supply prefix. It will be used in the prefix of the final output EXCEL file
+
+file: The name of the Net Basin supply file (EXCEL format) The file NEEDS to be saved in the [\data\NBS] folder of the WBM folders. The historical file is currently :NBS_moyenne_geometrique.xlsx
+
+type: This field specifiy the type of NBS supply. Possible values [H,CC,STO] H: historical,CC: Climate change, STO: STOCHASTIC
+
+
+!!!! IMPORTANT!!!!! if you are running CC Net Basin Supply----> YOU HAVE TO SPECIFY A NAME for the NEXT field (model) This name should be the name of the folder where the CC NBS file will be located
+!!!! FOR EXEMPLE IN LCRR study CLIMEX, CORDEX and CIMP5 NBS supply are currently available. The folders are located for each in the [\data\NBS\NBS_CLIMEX, \data\NBS\NBS_CMIP5, \data\NBS\NBS_CORDEX] So for CLIMEX
+!!!! The field model should be CLIMEX
+
+model: The name of the CC model used. Current possible value [CLIMEX,CIMP5,CORDEX] Leave it blank for historical or stochastic
+
+
+[HYDROLOGICAL_DATA]
+serie: This field specifiy the name of the level and flows (historical) downstream of Saint-Jean. This is needed for Saint-Ours discharge estimation and Level at Sorel. This is mainly for ISEE integration purpose
+	   The file located in the [\data] folder is currently :Level_flow_Sorel_StOurs.xlsx
+
+
+[LAKE_STORAGE]
+file:This field specifiy the name of the file for the Lake Champlain level volume relationship
+	   The file located in the [\data] folder is currently :LakeVolume2019.xlsx
+
+
+
+[HYDRAULIC_GEOMETRY]
+distance:This is the distance of the shoal to the cross section NOT TO BE CHANGE. Actual value ------> 36866
+CrossSectionFile:This field specifiy the name of the file for the Lake Champlain level volume relationship  Actual file in [] ------>CrossSectionRousesPoint.xlsx
+
+ManningFile:This is the file for the QM time step WBM model operation ------------------> RP_manning_2010_2016.xlsx
+ManningFile_daily:This is the file for the daily time step WBM model operation ------------------> RP_manning_2010_2016_daily.xlsx
+ManningFile_daily_2011:This is the file if the user want to run only the year 2011 WBM model ------------------> RP_manning_2011_daily.xlsx
+
+
+
+[STAGE-DISCHARGE]
+name:THis the Name the user want ot give to the WBM run --------------> user specific name
+equation:This specified if the Stage-Discharge is using a relationship keep it to False --------->False
+equation_parameters:This specified the equation parameters if the field equation is TRUE leave it blank
+level_parameters_file:This is the name of the file that contains all the stage-discharge relationships located in the data\hydraulics -----------> HQ_FINAL.xlsx
+#available alternative CURRENT (current shoal at Saint-Jean), CRUMP (IJC study crump weir), CRUMP_DIV (IJC study crump weir with small diversion into the Chambly canal)
+alternative:The Saint-Jean shoal configuration the user wants to run. See line above for available choices ---------------->CURRENT
+
+
+[MARINA]
+equation:This specified if the water level @Saint-Jean Marina needs to be computed keep it to True---------->True
+equation_parameters:This specified if the if the water level @Saint-Jean Marina is using a relationship keep it to None --------->None
+level_parameters_file:This is the name of the file that contains all the Saint-Jean marina relationships located in the data\hydraulics -----------> HQ_FINAL.xlsx
+marina_manning_file:This file contains the value to debiais the water levela @Saint-Jean marina (ice and plants) located in the data\hydraulics ------------------> Marina_manning_corrector.xlsx
+marina_lowflow_estimator_file:This file contains the value to debiais the water levela @Saint-Jean marina FOR LOW FLOW located in the data\hydraulics ------------------> Marina_LowFlowSlopeCorrector.xlsx
+
+[DOWNSTREAM]
+level:This specified if the user wants the Downstream flow and level data (input for ISEE system) for standard user keep it to None -----------> None
+
+[COMPUTING]
+special_year: This specified if the user want ot run only the year 2011. Only choice is 2011. For normal run leave it blank
+time_steps:This is the main time step for the WBM run AVAILABLE QM or daily ----------------------------> daily
+Lake_level_hourly: Experimental leave it blank
+Lake_level_hourly_QTM_AVG: Experimental leave it blank
+StopCriterion:This is the iteration stoping criterion use ----------> 0.00001
+Initial_lake_waterLevel:This is the inital Lake Champlain Level use the starting value of the Intial Date for normal run (1924-10-01 inital date use -----------------> 28.81
+Initial_river_waterLevel:This is the inital Richelieu Level use the starting value of the Intial Date for normal run (1924-10-01 inital date use ----------------->28.58
+Initial_river_flow:This is the inital Richelieu river flow use the starting value of the Intial Date for normal run (1924-10-01 inital date use -----------------> 231
+Inital_Date:Intial date of your NBS file you want to use standard runs ----------> 1924-10-01
+
+
+[OPERATING_PLAN]
+plan_file: The name of the plan file located in the \plan folder. ONLY used to test Alternative 2. Not inplemented in the normal WBM. Please use the LCRR_WBM_2021CR1_DD.py file to test alternative2
+[RESULTS]
+folder:The name of the output folder to use for the results. Folder will be created into \ouptuts main folder -----------> CURRENT_20200413_BASELINE
+OpenInExcel:If you want Excel to open the results after the run type True if not type False
+[GRAPHICS]
+Generate:If you want the WBM to create png file of the results (Time-serie) type True if not type False
+GenerateDynamic:If you want the WBM to create hmtl file of the results (dynamic Time-serie) type True if not type False
+Show:If you want the WBM show the grpahs files of the results (dynamic Time-serie) type True if not type False
+Save:If you want the WBM to save the grpahs files of the results (dynamic Time-serie) type True if not type False
+DPI:96
+Baseline:The name of the Excel file to use as the baseline for the graphs comparaison. The file Should be located in the \outputs\Excels_files folder (do not add the Results prefix here)------->H_NBS_Current_shoal_NBS_moyGeom_20201028_Baseline
+Baseline_legend_label:Name to use for the Baseline in the graphs -------> H_NBS_Current_shoal_NBS_moyGem_20201028_Baseline
+Baseline_line_color:Color to use for the Baseline in the graphs ------->red
+Baseline_line_width:Line width to use for the Baseline in th graphs -------> 1
+Calculated_legend_label:Name to use for the calculated serie in the graphs ------->Natural_shoal_NBS_moyGem_CURRENT_20210505_BASELINE
+Calculated_line_color:Color to use for the calculated serie in the graphs ------->blue
+Calculated_line_width:Line width to use for the the calculated serie in th graphs------->1
+Graph_title:Title of the graphs ----------> WBM model for Natural_shoal_NBS_moyGem_CURRENT_20210505_BASELINE compared to Baseline
